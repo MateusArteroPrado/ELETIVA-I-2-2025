@@ -8,9 +8,13 @@
 </head>
 <body>
     <?php
-        $dia = date("d") 
+        $dia = date("d"); 
         /*aqui eu defini que a variavel dia será o valor dat usar php -S localhost:8080
         e depois abrir o localhost:8080/nomedapasta/nomearquivo.php*/
+
+        echo $dia;
+
+        echo "<p>" . $dia . "</p>"; 
     ?>
     <h1> Hoje é dia <?= $dia ?> de Agosto de 2025 </h1>
 </body>
