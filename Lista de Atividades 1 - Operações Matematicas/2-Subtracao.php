@@ -8,7 +8,7 @@
 </head>
 <body> 
 <div class="container">
-<h1>Realize uma multiplicação!</h1>
+<h1>Realize uma Subtração!</h1>
 <form method="post">
 <div class="row inline-row mb-3"><div class="col-md-3">
               <label for="primeiro" class="form-label">Insira o primeiro número:</label>
@@ -17,15 +17,15 @@
               <label for="segundo" class="form-label">Insira o segundo o numero:</label>
               <input type="number" id="segundo" name="segundo" class="form-control" required="">
             </div></div>
-<button type="submit" class="btn btn-primary">Multiplicar</button>
+<button type="submit" class="btn btn-primary">Subtrair</button>
 </form>
 <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST') 
     {
     $primeiro = $_POST['primeiro'];
     $segundo = $_POST['segundo'];
-    $soma = $primeiro * $segundo;
-    echo "$primeiro * $segundo = $soma";
+    $subtracao = $primeiro - $segundo;
+    echo "$primeiro - $segundo = $subtracao";
     }
 ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
