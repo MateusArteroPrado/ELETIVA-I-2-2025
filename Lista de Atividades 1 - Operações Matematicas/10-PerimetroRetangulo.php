@@ -8,26 +8,23 @@
 </head>
 <body> 
 <div class="container">
-<h1>Calcule a área de um circulo!</h1>
+<h1>Calcule o perimetro de um retângulo (ou quadrado)!</h1>
 <form method="post">
 <div class="row inline-row mb-3">
-  <div class="col-md-3" bis_skin_checked="1">
-    <label for="medida" class="form-label">O valor é referente a:</label>
-    <select id="medida" name="medida" class="form-select">
-    <option value="a">Raio</option>
-    <option value="b">Diâmetro</option>
-    </select>
+  <div class="col-md-3">
+    <label for="altura" class="form-label">Insira a altura:</label>
+     <input type="number" id="altura" name="altura" class="form-control" required="">
   </div>
   <div class="col-md-3">
-    <label for="valor" class="form-label">Insira o valor:</label>
-    <input type="number" id="valor" name="valor" class="form-control" required="">
+    <label for="largura" class="form-label">Insira a largura:</label>
+    <input type="number" id="largura" name="largura" class="form-control" required="">
   </div>
   <div class="col-md-3" bis_skin_checked="1">
     <label for="unidade" class="form-label">unidade</label>
     <select id="unidade" name="unidade" class="form-select">
-    <option value="centímetros quadrados (cm²)">Centímetros</option>
-    <option value="metros quadrados (m²)">Metros</option>
-    <option value="polegadas quadradas (pol²)">Polegadas</option>
+    <option value="centímetros (cm)">Centímetros</option>
+    <option value="metros (m)">Metros</option>
+    <option value="polegadas(pol)">Polegadas</option>
     </select>
   </div>
 </div>
@@ -36,17 +33,11 @@
 <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST') 
     {
-    $medida = $_POST['medida'];
-    $valor = $_POST['valor'];
+    $altura = $_POST['altura'];
+    $largura = $_POST['largura'];
     $unidade = $_POST['unidade'];
-      if ($medida == 'a')
-      {$area = 3.14159265 * ($valor ** 2);
-        echo "  π * $valor ² = $area $unidade";
-      }
-      elseif ($medida == 'b')
-      {$area = ((3.14159265 * ($valor ** 2))/4);
-        echo " ( π * $valor ²)/4 = $area $unidade";
-      }
+    $perimetro = ($altura + $largura) * 2;
+    echo "($altura + $largura) * 2 = $perimetro $unidade";
     }
 ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
