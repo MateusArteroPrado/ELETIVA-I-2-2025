@@ -1,0 +1,1 @@
+Este repositório é para as atividades de Eletiva 1 - Linguagem de Programação, com a professora Vanessa.
