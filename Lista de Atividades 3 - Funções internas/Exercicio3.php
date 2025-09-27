@@ -20,10 +20,13 @@
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $palavra1 = $_POST['palavra1'];
     $palavra2 = $_POST['palavra2'];
-    if (str_contains($palavra1, $palavra2)) {
-        echo "<p class='text-center'>A palavra '{$palavra2}' está presente em '{$palavra1}'.</p>";
-    } else {
-        echo "<p class='text-center'>A palavra '{$palavra2}' não está presente em '{$palavra1}'.</p>";
-    } //Professora, eu estava concatenando do jeito mais dificil e não sabia
+    function contida($palavra1,$palavra2){
+        if (str_contains($palavra1, $palavra2)) {
+            echo "<p class='text-center'>A palavra '{$palavra2}' está presente em '{$palavra1}'.</p>";
+        } else {
+            echo "<p class='text-center'>A palavra '{$palavra2}' não está presente em '{$palavra1}'.</p>";
+        } //Professora, eu estava concatenando do jeito mais dificil e não sabia
+    }
+    contida($palavra1,$palavra2);
 }
 include('rodape.php') ?>

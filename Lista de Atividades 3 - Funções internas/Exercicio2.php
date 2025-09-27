@@ -15,7 +15,10 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $texto = $_POST['palavra'];
-    echo "<p class='text-center'> Sua palavra (ou texto) em maíusculo: " .mb_strtoupper($texto). "</p>";
-    echo "<p class='text-center'> Sua palavra (ou texto) em minúsculo: " .mb_strtolower($texto). "</p>";
+    function maiusculaminuscula($texto){
+        echo "<p class='text-center'> Sua palavra (ou texto) em maíusculo: " .mb_strtoupper($texto). "</p>";
+        echo "<p class='text-center'> Sua palavra (ou texto) em minúsculo: " .mb_strtolower($texto). "</p>";
+    }
+    maiusculaminuscula($texto);
         }
 include('rodape.php') ?>

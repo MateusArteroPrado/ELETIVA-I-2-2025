@@ -8,14 +8,17 @@
             <input type="text" id="palavra" name="palavra" class="form-control" required="" placeholder="Insira aqui a palavra">
         </div>
         <div class="text-center">
-        <button type="submit" class="btn btn-success">Enviar</button>
+            <button type="submit" class="btn btn-success">Enviar</button>
         </div>
 </div>
 </form>
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $texto = $_POST['palavra'];
-    $tamanho = mb_strlen($texto);
-    echo "<p class='text-center'> O número de caracteres da palavra " .$texto." é ".$tamanho. "</p>";
-        }
+    function contarcaracteres($texto)
+    {
+        echo "<p class='text-center'> O número de caracteres da palavra " . $texto . " é " . mb_strlen($texto) . "</p>";
+    }
+    contarcaracteres($texto);
+}
 include('rodape.php') ?>
