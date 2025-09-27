@@ -4,16 +4,16 @@
     <p class='text-center'>Formatador de data</p>
     <form method="post">
         <div class="mb-3">
-            <label for="dia" class="form-label">Dia</label>
-            <input type="number" id="dia" name="dia" class="form-control" required="" placeholder="Insira o dia (1-31)">
+            <label for="dia" class="form-label">Dia (01-31)</label>
+            <input type="number" id="dia" name="dia" class="form-control" required="" placeholder="Insira o dia (com 2 digitos)">
         </div>
         <div class="mb-3">
-            <label for="mes" class="form-label">Mês</label>
-            <input type="number" id="mes" name="mes" class="form-control" required="" placeholder="Insira o mês (1-12)">
+            <label for="mes" class="form-label">Mês (01-12)</label>
+            <input type="number" id="mes" name="mes" class="form-control" required="" placeholder="Insira o mês (com 2 digitos)">
         </div>
         <div class="mb-3">
-            <label for="ano" class="form-label">Ano</label>
-            <input type="number" id="ano" name="ano" class="form-control" required="" placeholder="Insira o ano (0 - 9999)">
+            <label for="ano" class="form-label">Ano (0000-9999)</label>
+            <input type="number" id="ano" name="ano" class="form-control" required="" placeholder="Insira o ano (com 4 digitos)">
         </div>
         <div class="text-center">
             <button type="submit" class="btn btn-success">Enviar</button>
@@ -25,6 +25,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dia = $_POST['dia'];
     $mes = $_POST['mes'];
     $ano = $_POST['ano'];
-    
+    function ajustedata($dia, $mes, $ano)
+    {
+        if (strlen($dia)<2 or strlen($mes)<2 or strlen($ano)<4) {
+            echo "<p class='text-center'>Por favor, insira a quantidade correta de digitos por campo.</p>";
+        } else {
+            if (checkdate($mes, $dia, $ano)) {
+                $data_formatada = sprintf("%02d/%02d/%04d", $dia, $mes, $ano);
+                echo "<p class='text-center'>$data_formatada</p>";
+            } else {
+                echo "<p class=text-center>Algo de errado aconteceu! Veja se a data preenchida realmente existe.</p>";
+            }
+        }
+    }
+    ajustedata($dia, $mes, $ano);
 }
 include('rodape.php') ?>
