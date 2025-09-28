@@ -1,7 +1,7 @@
 <?php include('cabecalho.php') ?>
 <div class="container py-3 col-md-10 border ">
     <h1 class='text-center'>Exercicio 2</h1>
-    <p class='text-center'>Lista de contatos.</p>
+    <p class='text-center'>Calcule a média dos alunos</p>
     <form method="post">
         <?php for ($i = 1; $i <= 5; $i++): ?>
             <p> - Aluno <?= $i ?> - </p>
