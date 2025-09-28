@@ -6,12 +6,12 @@
         <?php for ($i = 1; $i <= 5; $i++): ?>
             <p class="text-center">- - - - Contato <?= $i ?> - - - -</p>
             <div class="mb-3">
-                <label for="nome<?=$i?>" class="form-label">Nome:</label>
-                <input type="text" id="nome<?=$i?>" name="nomes[]" class="form-control" required="" placeholder="Insira aqui o nome">
+                <label for="nome<?= $i ?>" class="form-label">Nome:</label>
+                <input type="text" id="nome<?= $i ?>" name="nomes[]" class="form-control" required="" placeholder="Insira aqui o nome">
             </div>
             <div class="mb-3">
-                <label for="telefone<?=$i?>" class="form-label">Telefone:</label>
-                <input type="number" id="telefone<?=$i?>" name="telefones[]" class="form-control" required="" placeholder="Insira aqui o telefone">
+                <label for="preco<?= $i ?>" class="form-label">Telefone:</label>
+                <input type="number" id="preco<?= $i ?>" name="precos[]" class="form-control" required="" placeholder="Insira aqui o telefone">
             </div>
         <?php endfor; ?>
         <div class="text-center">
@@ -25,12 +25,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $telefones = $_POST['telefones'];
     $contatos = [];
 
-    for ($i=0; $i<5; $i++) {
+    for ($i = 0; $i < 5; $i++) {
         $nome = $nomes[$i];
         $telefone = $telefones[$i];
 
         if (isset($contatos[$nome]) or in_array($telefone, $contatos)) {
-            echo "<p class='text-danger text-ce'>Contato com dado duplicado (não adicionado) - Nome:{$nome} // Telefone {$telefone}</p>";
+            echo "<p class='text-danger text-center'>Contato com dado duplicado (não adicionado) - Nome:{$nome} // Telefone {$telefone}</p>";
         } else {
             $contatos[$nome] = $telefone;
         }
@@ -43,3 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 include('rodape.php') ?>
+
+Crie um formulário que leia dados de 5 itens: nome e preço. Leia os dados e crie um mapa ordenado onde as chaves
+ são os nomes dos itens e os valores são os preços após aplicação de um imposto de 15%. Exiba a lista ordenada 
+ pelos preços após a aplicação do imposto.

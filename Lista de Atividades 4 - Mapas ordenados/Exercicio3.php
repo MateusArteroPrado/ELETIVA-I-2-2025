@@ -7,16 +7,16 @@
             <p class="text-center">PRODUTO <?= $i ?></p>
             <div class="row inline-row mb-3">
                 <div class="col-md-2"> 
-                    <label for="codigos[]" class="form-label">Código</label>
-                    <input type="number" id="codigos[]" name="codigos[]" class="form-control">
+                    <label for="codigos<?=$i?>" class="form-label">Código</label>
+                    <input type="number" id="codigos<?=$i?>" name="codigos[]" class="form-control">
                 </div>
                 <div class="col-md-8">
-                    <label for="nomes[]" class="form-label">Nome</label>
-                    <input type="text" id="nomes[]" name="nomes[]" class="form-control">
+                    <label for="nomes<?=$i?>" class="form-label">Nome</label>
+                    <input type="text" id="nomes<?=$i?>" name="nomes[]" class="form-control">
                 </div>
                 <div class="col-md-2">
-                    <label for="precos[]" class="form-label">Preço</label>
-                    <input type="number" id="precos[]" name="precos[]" class="form-control">
+                    <label for="precos<?=$i?>" class="form-label">Preço</label>
+                    <input type="number" id="precos<?=$i?>" name="precos[]" class="form-control">
                 </div>
             </div>
         <?php endfor; ?>
