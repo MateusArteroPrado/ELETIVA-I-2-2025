@@ -1,17 +1,19 @@
 <?php include('cabecalho.php') ?>
-<div class="container py-3 col-md-4 border ">
-    <h1 class='text-center'>Exercicio 1</h1>
-    <p class='text-center'>Lista de contatos.</p>
+<div class="container py-3 col-md-6 border ">
+    <h1 class='text-center'>Exercicio 4</h1>
+    <p class='text-center'>Lista de itens para aplicar imposto de 15%</p>
     <form method="post">
         <?php for ($i = 1; $i <= 5; $i++): ?>
-            <p class="text-center">- - - - Contato <?= $i ?> - - - -</p>
-            <div class="mb-3">
-                <label for="nome<?= $i ?>" class="form-label">Nome:</label>
-                <input type="text" id="nome<?= $i ?>" name="nomes[]" class="form-control" required="" placeholder="Insira aqui o nome">
-            </div>
-            <div class="mb-3">
-                <label for="preco<?= $i ?>" class="form-label">Telefone:</label>
-                <input type="number" id="preco<?= $i ?>" name="precos[]" class="form-control" required="" placeholder="Insira aqui o telefone">
+            <p class="text-center fw-bold">Item <?= $i ?></p>
+            <div class="row inline-row mb-3">
+                <div class="col-md-8">
+                    <label for="nome<?= $i ?>" class="form-label">Nome</label>
+                    <input type="text" id="nome<?= $i ?>" name="nomes[]" class="form-control" required="" placeholder="Insira aqui o nome do item">
+                </div>
+                <div class="col-md-4">
+                    <label for="preco<?= $i ?>" class="form-label">Preço</label>
+                    <input type="number" id="preco<?= $i ?>" name="precos[]" class="form-control" required="" placeholder="Insira aqui o preço" step="any">
+                </div>
             </div>
         <?php endfor; ?>
         <div class="text-center">
@@ -22,28 +24,18 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nomes = $_POST['nomes'];
-    $telefones = $_POST['telefones'];
-    $contatos = [];
-
+    $precos = $_POST['precos'];
+    $itens = [];
     for ($i = 0; $i < 5; $i++) {
         $nome = $nomes[$i];
-        $telefone = $telefones[$i];
-
-        if (isset($contatos[$nome]) or in_array($telefone, $contatos)) {
-            echo "<p class='text-danger text-center'>Contato com dado duplicado (não adicionado) - Nome:{$nome} // Telefone {$telefone}</p>";
-        } else {
-            $contatos[$nome] = $telefone;
-        }
+        $preco = $precos[$i] + ($precos[$i] * 0.15);
+        $itens[$nome] = $preco;
     }
 
-    ksort($contatos);
-    echo "<p class='text-center fw-bold'>Lista de contatos</p>";
-    foreach ($contatos as $nome => $telefone) {
-        echo "<p class='text-center'>{$nome} - {$telefone}<p>";
+    asort($itens);
+    echo "<p class='text-center fw-bold'>Lista de itens</p>";
+    foreach ($itens as $nome => $preco) {
+        echo "<p class='text-center'>".$nome. " - R$".number_format($preco, 2, ',', '.')."<p>";
     }
 }
 include('rodape.php') ?>
-
-Crie um formulário que leia dados de 5 itens: nome e preço. Leia os dados e crie um mapa ordenado onde as chaves
- são os nomes dos itens e os valores são os preços após aplicação de um imposto de 15%. Exiba a lista ordenada 
- pelos preços após a aplicação do imposto.
