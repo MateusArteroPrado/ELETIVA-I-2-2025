@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $nome = $nomes[$i];
         $preco = (float)$precos[$i];
         if (isset($produtos[$codigo])) {
-            echo "<p class='text-danger text-center'>O código {$codigo[$i]} ou o {$nome[$i]} já foi registrado, portanto elimina-se os repetidos.</p>";
+            echo "<p class='text-danger text-center'>O código {$codigo} do produto {$nome} já foi registrado, portanto elimina-se os repetidos.</p>";
         } else {
             if ($preco > 100) {
                 $preco = $preco * 0.9;
