@@ -43,7 +43,7 @@ if(isset($_GET['excluir']) && $_GET['excluir']){
         <tr>
             <td><?= $d['id'] ?></td>
             <td><?= $d['descricao'] ?></td>
-            <td><?= $d['categoria_id'] ?></td>
+            <td><?= $d['nome'] ?></td>
             <td class="d-flex gap-2">
                 <a href="editar_produto.php?id=<?= $d['id'] ?>" class="btn btn-sm btn-warning">Editar</a>
                 <a href="consultar_produto.php?id=<?= $d['id'] ?>" class="btn btn-sm btn-info">Consultar</a>
