@@ -11,14 +11,22 @@ $pagina_atual = basename($_SERVER['PHP_SELF']);
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>CondControl</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            /* Valor que compensa a altura da Navbar */
+            padding-top: 70px;
+        }
+    </style>
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center" href="principal.php">
                 <img src="condcontrol_logo.png" alt="CondControl Logo" height="30" class="me-2">
@@ -32,13 +40,15 @@ $pagina_atual = basename($_SERVER['PHP_SELF']);
                         <a class="nav-link <?= ($pagina_atual == 'principal.php' || $pagina_atual == 'index.php') ? 'active' : '' ?>"
                             href="principal.php">Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link <?= ($pagina_atual == 'moradores.php') ? 'active' : '' ?>"
-                            href="moradores.php">Moradores</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link <?= ($pagina_atual == 'veiculos.php') ? 'active' : '' ?>"
-                            href="veiculos.php">Veículos</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="cadastrosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Pessoas & Ativos
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="cadastrosDropdown">
+                            <li><a class="dropdown-item <?= ($pagina_atual == 'moradores.php') ? 'active' : '' ?>" href="moradores.php">Moradores</a></li>
+                            <li><a class="dropdown-item <?= ($pagina_atual == 'unidades.php') ? 'active' : '' ?>" href="unidades.php">Unidades</a></li>
+                            <li><a class="dropdown-item <?= ($pagina_atual == 'veiculos.php') ? 'active' : '' ?>" href="veiculos.php">Veículos</a></li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?= ($pagina_atual == 'ocorrencias.php') ? 'active' : '' ?>"
