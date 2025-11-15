@@ -1,58 +1,72 @@
 <?php
 require("cabecalho.php");
 require("conexao.php");
+
+// Mensagens de feedback
+$feedback = '';
+if (isset($_GET['cadastro'])) {
+    $feedback = $_GET['cadastro'] ? "<div class='alert alert-success'>CADASTRO REALIZADO</div>" : "<div class='alert alert-danger'>ERRO AO CADASTRAR</div>";
+}
+// ... (pode adicionar 'editar' e 'excluir' aqui também) ...
+
 try {
-    $stmt = $pdo->query("SELECT * FROM veiculo");
-    $dados = $stmt->fetchAll();
+    // Consulta CORRIGIDA com JOIN para buscar o nome do morador
+    $stmt = $pdo->prepare("SELECT 
+                                v.placa, 
+                                v.modelo, 
+                                v.cor, 
+                                m.nome AS nome_morador 
+                           FROM veiculo v
+                           JOIN morador m ON v.morador_id_morador = m.id_morador
+                           ORDER BY v.placa");
+    $stmt->execute();
+    $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 } catch (\Exception $e) {
     echo "Erro: " . $e->getMessage();
-}
-if (isset($_GET['cadastro']) && $_GET['cadastro']) {
-    echo "<p class='text-success'>CADASTRO REALIZADO</p>";
-} else if (isset($_GET['cadastro']) && !$_GET['cadastro']) {
-    echo "<p class='text-danger'>ERRO AO CADASTRAR</p>";
-}
-if (isset($_GET['editar']) && $_GET['editar']) {
-    echo "<p class='text-success'>CADASTRO EDITADO</p>";
-} else if (isset($_GET['editar']) && !$_GET['editar']) {
-    echo "<p class='text-danger'>ERRO AO EDITAR</p>";
-}
-if (isset($_GET['excluir']) && $_GET['excluir']) {
-    echo "<p class='text-success'>CADASTRO EXCLUIDO</p>";
-} else if (isset($_GET['excluir']) && !$_GET['excluir']) {
-    echo "<p class='text-danger'>ERRO AO EXCLUIR</p>";
+    $dados = [];
 }
 ?>
 
-<div class="d-flex flex-column align-items-center">
-    <div class="card shadow-lg p-4" style="width: 100%; max-width: 90%;">
-        <div class="card-body">
-            <h2 class="card-title text-center mb-4">Veículos</h2>
-            <a href="novo_veiculos.php" class="btn btn-success mb-3">Novo Registro</a>
-            <table class="table table-hover table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($dados as $d): ?>
-                        <tr>
-                            <td><?= $d['id'] ?></td>
-                            <td><?= $d['nome'] ?></td>
-                            <td class="d-flex gap-2">
-                                <a href="editar_veiculo.php?id=<?= $d['id'] ?>" class="btn btn-sm btn-warning">Editar</a>
-                                <a href="apagar_veiculo.php?id=<?= $d['id'] ?>" class="btn btn-sm btn-info">Apagar</a>
-                            </td>
-                        </tr>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+            <div class="card shadow-lg p-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="card-title">Veículos</h2>
+                        <a href="novo_veiculo.php" class="btn btn-success">Novo Registro</a>
+                    </div>
+                    
+                    <?= $feedback ?> <table class="table table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Placa</th>
+                                <th>Modelo</th>
+                                <th>Cor</th>
+                                <th>Proprietário (Morador)</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($dados as $d): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($d['placa']) ?></td>
+                                    <td><?= htmlspecialchars($d['modelo']) ?></td>
+                                    <td><?= htmlspecialchars($d['cor']) ?></td>
+                                    <td><?= htmlspecialchars($d['nome_morador']) ?></td>
+                                    <td class="d-flex gap-2">
+                                        <a href="editar_veiculo.php?placa=<?= $d['placa'] ?>" class="btn btn-sm btn-warning">Editar</a>
+                                        <a href="apagar_veiculo.php?placa=<?= $d['placa'] ?>" class="btn btn-sm btn-danger">Apagar</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 
 <?php require("rodape.php") ?>

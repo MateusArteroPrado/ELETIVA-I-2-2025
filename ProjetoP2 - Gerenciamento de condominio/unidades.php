@@ -33,18 +33,20 @@ if (isset($_GET['excluir']) && $_GET['excluir']) {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nome</th>
+                        <th>Complemento (rua/bloco)</th>
+                        <th>Número (Casa/Apto)</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($dados as $d): ?>
                         <tr>
-                            <td><?= $d['id'] ?></td>
-                            <td><?= $d['nome'] ?></td>
+                            <td><?= $d['id_unidade'] ?></td>
+                            <td><?= $d['complemento'] ?></td>
+                            <td><?= $d['numero'] ?></td>
                             <td class="d-flex gap-2">
-                                <a href="editar_unidade.php?id=<?= $d['id'] ?>" class="btn btn-sm btn-warning">Editar</a>
-                                <a href="apagar_unidade.php?id=<?= $d['id'] ?>" class="btn btn-sm btn-info">Apagar</a>
+                                <a href="editar_unidade.php?id=<?= $d['id_unidade'] ?>" class="btn btn-sm btn-warning">Editar</a>
+                                <a href="apagar_unidade.php?id=<?= $d['id_unidade'] ?>" class="btn btn-sm btn-info">Apagar</a>
                             </td>
                         </tr>
                     <?php endforeach ?>
