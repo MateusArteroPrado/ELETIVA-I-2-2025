@@ -2,26 +2,24 @@
 require("cabecalho.php");
 require("conexao.php");
 
-// Lógica de Feedback
 $feedback = '';
 if (isset($_GET['cadastro'])) {
-    $feedback = $_GET['cadastro'] == 'true' 
-        ? "<div class='alert alert-success'>OCORRÊNCIA REGISTRADA</div>" 
+    $feedback = $_GET['cadastro'] == 'true'
+        ? "<div class='alert alert-success'>OCORRÊNCIA REGISTRADA</div>"
         : "<div class='alert alert-danger'>ERRO AO REGISTRAR</div>";
 }
 if (isset($_GET['editar'])) {
-    $feedback = $_GET['editar'] == 'true' 
-        ? "<div class='alert alert-success'>OCORRÊNCIA EDITADA</div>" 
+    $feedback = $_GET['editar'] == 'true'
+        ? "<div class='alert alert-success'>OCORRÊNCIA EDITADA</div>"
         : "<div class='alert alert-danger'>ERRO AO EDITAR</div>";
 }
 if (isset($_GET['excluir'])) {
-    $feedback = $_GET['excluir'] == 'true' 
-        ? "<div class='alert alert-success'>OCORRÊNCIA EXCLUÍDA</div>" 
+    $feedback = $_GET['excluir'] == 'true'
+        ? "<div class='alert alert-success'>OCORRÊNCIA EXCLUÍDA</div>"
         : "<div class='alert alert-danger'>ERRO AO EXCLUIR</div>";
 }
 
 try {
-    // Busca todos os campos, incluindo a descrição completa
     $stmt = $pdo->prepare("SELECT 
                                 o.id_ocorrencia, 
                                 o.titulo,
@@ -42,7 +40,7 @@ try {
 <div class="container mt-3">
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
-        
+
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="mb-0">Mural de Ocorrências</h2>
                 <a href="nova_ocorrencia.php" class="btn btn-success">Registrar Nova</a>

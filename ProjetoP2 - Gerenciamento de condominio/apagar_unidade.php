@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
 }
 
-// POST: Executa a exclusão
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $id_unidade = $_POST['id_unidade'];
     try {
@@ -25,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             header('location: unidades.php?excluir=false');
         }
     } catch (\Exception $e) {
-        // Captura o erro (ex: se um morador estiver vinculado a esta unidade)
         header('location: unidades.php?excluir=false&erro=' . urlencode($e->getMessage()));
     }
 }

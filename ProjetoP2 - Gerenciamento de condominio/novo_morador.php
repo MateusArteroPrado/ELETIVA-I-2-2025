@@ -2,7 +2,6 @@
 require("cabecalho.php");
 require("conexao.php");
 
-// 1. Buscar todas as unidades para o dropdown
 $unidades = [];
 try {
     $stmt_unidades = $pdo->query("SELECT id_unidade, numero, complemento FROM unidade ORDER BY complemento, numero");
@@ -11,10 +10,9 @@ try {
     echo "<div class='container mt-3 alert alert-danger'>Erro ao carregar unidades: " . $e->getMessage() . "</div>";
 }
 
-// 2. Tratar o POST (Cadastro do Morador)
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $nome = $_POST['nome'];
-    $id_unidade = $_POST['id_unidade']; // ID que vem do <select>
+    $id_unidade = $_POST['id_unidade'];
 
     if (empty($nome) || empty($id_unidade)) {
         echo "<div class='container mt-3 alert alert-danger'>Nome e Unidade são obrigatórios.</div>";
@@ -29,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 exit;
             }
         } catch (\Exception $e) {
-            // Exibe erro genérico ou de duplicidade
             echo "<div class='container mt-3 alert alert-danger'>Erro ao cadastrar: " . $e->getMessage() . "</div>";
         }
     }

@@ -9,7 +9,6 @@
   <style>
     body {
       background-color: #f8f9fa;
-      /* Mantém o mesmo fundo do login */
     }
   </style>
 </head>
@@ -44,7 +43,6 @@
       </div>
     </div>
     <?php
-    // Bloco PHP de lógica (Manter o seu código original aqui)
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
       require("conexao.php");
       $nome = $_POST['nome'];
@@ -63,4 +61,5 @@
     }
     ?>
 </body>
+
 </html>

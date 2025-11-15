@@ -5,13 +5,13 @@ require("conexao.php");
 // Lógica de Feedback
 $feedback = '';
 if (isset($_GET['cadastro'])) {
-    $feedback = $_GET['cadastro'] == 'true' 
-        ? "<div class='alert alert-success'>MOVIMENTAÇÃO REGISTRADA</div>" 
+    $feedback = $_GET['cadastro'] == 'true'
+        ? "<div class='alert alert-success'>MOVIMENTAÇÃO REGISTRADA</div>"
         : "<div class='alert alert-danger'>ERRO AO REGISTRAR</div>";
 }
 if (isset($_GET['excluir'])) {
-    $feedback = $_GET['excluir'] == 'true' 
-        ? "<div class='alert alert-success'>REGISTRO EXCLUÍDO</div>" 
+    $feedback = $_GET['excluir'] == 'true'
+        ? "<div class='alert alert-success'>REGISTRO EXCLUÍDO</div>"
         : "<div class='alert alert-danger'>ERRO AO EXCLUIR</div>";
 }
 
@@ -39,7 +39,7 @@ try {
 <div class="d-flex flex-column align-items-center mt-3">
     <div class="card shadow-lg p-4" style="width: 100%; max-width: 90%;">
         <div class="card-body">
-            
+
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="card-title mb-0">Registro de Movimentações</h2>
                 <div class="d-flex gap-2">
@@ -48,7 +48,7 @@ try {
                 </div>
             </div>
 
-            <?= $feedback ?> 
+            <?= $feedback ?>
 
             <table class="table table-hover table-striped">
                 <thead>
@@ -73,7 +73,7 @@ try {
                                 </td>
                                 <td><?= htmlspecialchars($d['data_formatada']) ?></td>
                                 <td><?= htmlspecialchars($d['nome_morador']) ?></td>
-                                
+
                                 <td>
                                     <?php if ($d['placa_veiculo'] !== null): ?>
                                         <?= htmlspecialchars($d['placa_veiculo'] . ' - ' . $d['modelo_veiculo']) ?>
@@ -81,7 +81,7 @@ try {
                                         Sem veículo
                                     <?php endif; ?>
                                 </td>
-                                
+
                                 <td>
                                     <a href="apagar_movimentacao.php?id=<?= $d['id_movimentacao'] ?>" class="btn btn-sm btn-info">Apagar</a>
                                 </td>

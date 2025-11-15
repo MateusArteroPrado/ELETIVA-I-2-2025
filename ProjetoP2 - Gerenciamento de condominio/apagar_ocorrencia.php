@@ -4,24 +4,20 @@ require("conexao.php");
 
 $ocorrencia = [];
 
-// GET: Busca os dados para confirmação
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     try {
         $id_ocorrencia_get = $_GET['id'] ?? null;
         if (!$id_ocorrencia_get) throw new Exception("ID da ocorrência não fornecido.");
 
-        // Busca o título para confirmação
         $stmt = $pdo->prepare("SELECT titulo FROM ocorrencia WHERE id_ocorrencia = ?");
         $stmt->execute([$id_ocorrencia_get]);
         $ocorrencia = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$ocorrencia) throw new Exception("Ocorrência não encontrada.");
-        
     } catch (Exception $e) {
         echo "<div class='container mt-3 alert alert-danger'>Erro: " . $e->getMessage() . "</div>";
     }
 }
 
-// POST: Executa a exclusão
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $id_ocorrencia = $_POST['id_ocorrencia'];
     try {
@@ -34,9 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             exit;
         }
     } catch (\PDOException $e) {
-         // Erro genérico
-         header('location: ocorrencias.php?excluir=false&erro=' . urlencode($e->getMessage()));
-         exit;
+        header('location: ocorrencias.php?excluir=false&erro=' . urlencode($e->getMessage()));
+        exit;
     }
 }
 ?>
@@ -47,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <div class="card shadow-lg p-4">
                 <div class="card-body">
                     <h2 class="card-title text-center mb-4">Apagar Ocorrência</h2>
-                    
+
                     <div class="alert alert-danger" role="alert">
                         <strong>Atenção!</strong> Você tem certeza que deseja excluir permanentemente esta ocorrência?
                     </div>
@@ -55,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <?php if (!empty($ocorrencia)): ?>
                         <form method="post">
                             <input type="hidden" name='id_ocorrencia' value='<?= htmlspecialchars($_GET['id'] ?? '') ?>'>
-                            
+
                             <div class="mb-3">
                                 <label class="form-label">Título da Ocorrência:</label>
                                 <input disabled value='<?= htmlspecialchars($ocorrencia['titulo'] ?? '') ?>' type="text" class="form-control">
@@ -75,5 +70,5 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         </div>
     </div>
 </div>
-    
+
 <?php require("rodape.php"); ?>

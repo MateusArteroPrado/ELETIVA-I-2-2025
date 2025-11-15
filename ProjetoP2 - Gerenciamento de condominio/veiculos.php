@@ -2,28 +2,26 @@
 require("cabecalho.php");
 require("conexao.php");
 
-// Lógica de Feedback
 if (isset($_GET['cadastro'])) {
-    $msg = $_GET['cadastro'] == 'true' 
-        ? "<div class='alert alert-success'>CADASTRO REALIZADO</div>" 
+    $msg = $_GET['cadastro'] == 'true'
+        ? "<div class='alert alert-success'>CADASTRO REALIZADO</div>"
         : "<div class='alert alert-danger'>ERRO AO CADASTRAR</div>";
     echo $msg;
 }
 if (isset($_GET['editar'])) {
-    $msg = $_GET['editar'] == 'true' 
-        ? "<div class='alert alert-success'>CADASTRO EDITADO</div>" 
+    $msg = $_GET['editar'] == 'true'
+        ? "<div class='alert alert-success'>CADASTRO EDITADO</div>"
         : "<div class='alert alert-danger'>ERRO AO EDITAR</div>";
     echo $msg;
 }
 if (isset($_GET['excluir'])) {
-    $msg = $_GET['excluir'] == 'true' 
-        ? "<div class='alert alert-success'>CADASTRO EXCLUÍDO</div>" 
+    $msg = $_GET['excluir'] == 'true'
+        ? "<div class='alert alert-success'>CADASTRO EXCLUÍDO</div>"
         : "<div class='alert alert-danger'>ERRO AO EXCLUIR</div>";
     echo $msg;
 }
 
 try {
-    // JOIN para buscar o nome do dono do veículo
     $stmt = $pdo->prepare("SELECT 
                                 v.placa, 
                                 v.modelo, 
@@ -45,7 +43,7 @@ try {
         <div class="card-body">
             <h2 class="card-title text-center mb-4">Veículos</h2>
             <a href="novo_veiculo.php" class="btn btn-success mb-3">Novo Registro</a>
-            
+
             <table class="table table-hover table-striped">
                 <thead>
                     <tr>
@@ -57,7 +55,7 @@ try {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if(count($dados) > 0): ?>
+                    <?php if (count($dados) > 0): ?>
                         <?php foreach ($dados as $d): ?>
                             <tr>
                                 <td><?= htmlspecialchars($d['placa']) ?></td>

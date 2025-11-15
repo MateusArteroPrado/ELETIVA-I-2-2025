@@ -4,20 +4,20 @@ require("conexao.php");
 
 // Lógica de Feedback (Mensagens de sucesso/erro)
 if (isset($_GET['cadastro'])) {
-    $msg = $_GET['cadastro'] == 'true' 
-        ? "<div class='alert alert-success'>CADASTRO REALIZADO</div>" 
+    $msg = $_GET['cadastro'] == 'true'
+        ? "<div class='alert alert-success'>CADASTRO REALIZADO</div>"
         : "<div class='alert alert-danger'>ERRO AO CADASTRAR</div>";
     echo $msg;
 }
 if (isset($_GET['editar'])) {
-    $msg = $_GET['editar'] == 'true' 
-        ? "<div class='alert alert-success'>CADASTRO EDITADO</div>" 
+    $msg = $_GET['editar'] == 'true'
+        ? "<div class='alert alert-success'>CADASTRO EDITADO</div>"
         : "<div class='alert alert-danger'>ERRO AO EDITAR</div>";
     echo $msg;
 }
 if (isset($_GET['excluir'])) {
-    $msg = $_GET['excluir'] == 'true' 
-        ? "<div class='alert alert-success'>CADASTRO EXCLUÍDO</div>" 
+    $msg = $_GET['excluir'] == 'true'
+        ? "<div class='alert alert-success'>CADASTRO EXCLUÍDO</div>"
         : "<div class='alert alert-danger'>ERRO AO EXCLUIR</div>";
     echo $msg;
 }
@@ -45,7 +45,7 @@ try {
         <div class="card-body">
             <h2 class="card-title text-center mb-4">Moradores</h2>
             <a href="novo_morador.php" class="btn btn-success mb-3">Novo Registro</a>
-            
+
             <table class="table table-hover table-striped">
                 <thead>
                     <tr>
@@ -56,7 +56,7 @@ try {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if(count($dados) > 0): ?>
+                    <?php if (count($dados) > 0): ?>
                         <?php foreach ($dados as $d): ?>
                             <tr>
                                 <td><?= htmlspecialchars($d['id_morador']) ?></td>

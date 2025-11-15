@@ -4,13 +4,11 @@ require("conexao.php");
 
 $veiculo = [];
 
-// GET: Busca os dados para confirmação
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
     try {
         $placa_get = $_GET['placa'] ?? null;
         if (!$placa_get) throw new Exception("Placa não fornecida.");
 
-        // JOIN para mostrar o nome do proprietário
         $stmt = $pdo->prepare("SELECT v.placa, v.modelo, m.nome 
                                FROM veiculo v
                                JOIN morador m ON v.morador_id_morador = m.id_morador
@@ -18,13 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $stmt->execute([$placa_get]);
         $veiculo = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$veiculo) throw new Exception("Veículo não encontrado.");
-        
     } catch (Exception $e) {
         echo "<div class='container mt-3 alert alert-danger'>Erro: " . $e->getMessage() . "</div>";
     }
 }
 
-// POST: Executa a exclusão
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $placa = $_POST['placa'];
     try {
@@ -37,14 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             exit;
         }
     } catch (\PDOException $e) {
-        // Erro de violação de Foreign Key (ex: veículo está em movimentacao)
-         if ($e->getCode() == '23000') {
-             $erro_msg = "Não é possível excluir: este veículo possui registros de movimentação.";
-             header('location: veiculos.php?excluir=false&erro=' . urlencode($erro_msg));
-         } else {
-             header('location: veiculos.php?excluir=false&erro=' . urlencode($e->getMessage()));
-         }
-         exit;
+        if ($e->getCode() == '23000') {
+            $erro_msg = "Não é possível excluir: este veículo possui registros de movimentação.";
+            header('location: veiculos.php?excluir=false&erro=' . urlencode($erro_msg));
+        } else {
+            header('location: veiculos.php?excluir=false&erro=' . urlencode($e->getMessage()));
+        }
+        exit;
     }
 }
 ?>
@@ -55,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             <div class="card shadow-lg p-4">
                 <div class="card-body">
                     <h2 class="card-title text-center mb-4">Apagar Veículo</h2>
-                    
+
                     <div class="alert alert-danger" role="alert">
                         <strong>Atenção!</strong> Você tem certeza que deseja excluir o registro abaixo?
                         <br>
@@ -65,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <?php if (!empty($veiculo)): ?>
                         <form method="post">
                             <input type="hidden" name='placa' value='<?= htmlspecialchars($_GET['placa'] ?? '') ?>'>
-                            
+
                             <div class="mb-3">
                                 <label class="form-label">Placa:</label>
                                 <input disabled value='<?= htmlspecialchars($veiculo['placa'] ?? '') ?>' type="text" class="form-control">
@@ -74,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <label class="form-label">Modelo:</label>
                                 <input disabled value='<?= htmlspecialchars($veiculo['modelo'] ?? '') ?>' type="text" class="form-control">
                             </div>
-                             <div class="mb-3">
+                            <div class="mb-3">
                                 <label class="form-label">Proprietário:</label>
                                 <input disabled value='<?= htmlspecialchars($veiculo['nome'] ?? '') ?>' type="text" class="form-control">
                             </div>
@@ -93,5 +88,5 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         </div>
     </div>
 </div>
-    
+
 <?php require("rodape.php"); ?>

@@ -2,19 +2,18 @@
 require("cabecalho.php");
 require("conexao.php");
 
-if($_SERVER['REQUEST_METHOD']=="POST"){
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $complemento = $_POST['complemento'];
     $numero = $_POST['numero'];
-    try{
+    try {
         $stmt = $pdo->prepare("INSERT INTO unidade (complemento,numero) VALUES (?, ?)");
-        if($stmt->execute([$complemento, $numero])){
+        if ($stmt->execute([$complemento, $numero])) {
             header('location: unidades.php?cadastro=true');
-        }else{
+        } else {
             header('location: unidades.php?cadastro=false');
         }
-    }catch(\Exception $e){
-        // Tratar erro de duplicidade (se houver UNIQUE constraints) ou outros
-        echo "Erro: ".$e->getMessage(); 
+    } catch (\Exception $e) {
+        echo "Erro: " . $e->getMessage();
     }
 }
 ?>
