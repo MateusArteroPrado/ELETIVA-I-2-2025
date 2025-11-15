@@ -2,20 +2,28 @@
 require("cabecalho.php");
 require("conexao.php");
 
-// Mensagens de feedback (movidas para dentro do container)
-$feedback = '';
+// Lógica de Feedback (Mensagens de sucesso/erro)
 if (isset($_GET['cadastro'])) {
-    $feedback = $_GET['cadastro'] ? "<div class='alert alert-success'>CADASTRO REALIZADO</div>" : "<div class='alert alert-danger'>ERRO AO CADASTRAR</div>";
+    $msg = $_GET['cadastro'] == 'true' 
+        ? "<div class='alert alert-success'>CADASTRO REALIZADO</div>" 
+        : "<div class='alert alert-danger'>ERRO AO CADASTRAR</div>";
+    echo $msg;
 }
 if (isset($_GET['editar'])) {
-    $feedback = $_GET['editar'] ? "<div class='alert alert-success'>CADASTRO EDITADO</div>" : "<div class='alert alert-danger'>ERRO AO EDITAR</div>";
+    $msg = $_GET['editar'] == 'true' 
+        ? "<div class='alert alert-success'>CADASTRO EDITADO</div>" 
+        : "<div class='alert alert-danger'>ERRO AO EDITAR</div>";
+    echo $msg;
 }
 if (isset($_GET['excluir'])) {
-    $feedback = $_GET['excluir'] ? "<div class='alert alert-success'>CADASTRO EXCLUÍDO</div>" : "<div class='alert alert-danger'>ERRO AO EXCLUIR</div>";
+    $msg = $_GET['excluir'] == 'true' 
+        ? "<div class='alert alert-success'>CADASTRO EXCLUÍDO</div>" 
+        : "<div class='alert alert-danger'>ERRO AO EXCLUIR</div>";
+    echo $msg;
 }
 
 try {
-    // Consulta CORRIGIDA com JOIN para buscar o nome da unidade
+    // JOIN para buscar o endereço da unidade vinculado ao morador
     $stmt = $pdo->prepare("SELECT 
                                 m.id_morador, 
                                 m.nome, 
@@ -26,49 +34,49 @@ try {
                            ORDER BY m.nome");
     $stmt->execute();
     $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 } catch (\Exception $e) {
-    echo "Erro: " . $e->getMessage();
+    echo "<div class='alert alert-danger'>Erro: " . $e->getMessage() . "</div>";
     $dados = [];
 }
 ?>
 
-<div class="container mt-3">
-    <div class="row">
-        <div class="col-lg-10 offset-lg-1">
-            <div class="card shadow-lg p-4">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h2 class="card-title">Moradores</h2>
-                        <a href="novo_morador.php" class="btn btn-success">Novo Registro</a>
-                    </div>
-                    
-                    <?= $feedback ?> <table class="table table-hover table-striped">
-                        <thead class="table-dark">
+<div class="d-flex flex-column align-items-center mt-3">
+    <div class="card shadow-lg p-4" style="width: 100%; max-width: 90%;">
+        <div class="card-body">
+            <h2 class="card-title text-center mb-4">Moradores</h2>
+            <a href="novo_morador.php" class="btn btn-success mb-3">Novo Registro</a>
+            
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Unidade (Endereço)</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if(count($dados) > 0): ?>
+                        <?php foreach ($dados as $d): ?>
                             <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Unidade</th> <th>Ações</th>
+                                <td><?= htmlspecialchars($d['id_morador']) ?></td>
+                                <td><?= htmlspecialchars($d['nome']) ?></td>
+                                <td><?= htmlspecialchars($d['complemento'] . ' - ' . $d['numero']) ?></td>
+                                <td class="d-flex gap-2">
+                                    <a href="editar_morador.php?id=<?= $d['id_morador'] ?>" class="btn btn-sm btn-warning">Editar</a>
+                                    <a href="apagar_morador.php?id=<?= $d['id_morador'] ?>" class="btn btn-sm btn-info">Apagar</a>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($dados as $d): ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($d['id_morador']) ?></td>
-                                    <td><?= htmlspecialchars($d['nome']) ?></td>
-                                    <td><?= htmlspecialchars($d['complemento'] . ' - ' . $d['numero']) ?></td>
-                                    <td class="d-flex gap-2">
-                                        <a href="editar_morador.php?id=<?= $d['id_morador'] ?>" class="btn btn-sm btn-warning">Editar</a>
-                                        <a href="apagar_morador.php?id=<?= $d['id_morador'] ?>" class="btn btn-sm btn-danger">Apagar</a>
-                                    </td>
-                                </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                        <?php endforeach ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="4" class="text-center">Nenhum morador encontrado.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 
-<?php require("rodape.php") ?>  
+<?php require("rodape.php") ?>
