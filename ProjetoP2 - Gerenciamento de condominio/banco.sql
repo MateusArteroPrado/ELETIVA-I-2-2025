@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `condominio`.`movimentacao` (
   `data_hora` DATETIME NOT NULL,
   `observacao` TEXT NOT NULL,
   `morador_id_morador` INT NOT NULL,
-  `veiculo_placa` VARCHAR(7) NOT NULL,
+  `veiculo_placa` VARCHAR(7),
   PRIMARY KEY (`id_movimentacao`),
   INDEX `fk_movimentacao_morador1_idx` (`morador_id_morador` ASC),
   INDEX `fk_movimentacao_veiculo1_idx` (`veiculo_placa` ASC),
