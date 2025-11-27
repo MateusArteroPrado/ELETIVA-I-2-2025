@@ -33,29 +33,19 @@ try {
     <div class="card shadow-lg p-4" style="width: 100%; max-width: 90%;">
         <div class="card-body">
             <h2 class="card-title text-center mb-4">Unidades</h2>
-
             <?= $feedback ?>
-
-            <!-- NOVO CONTÊINER DE ALINHAMENTO -->
             <div class="d-flex justify-content-between mb-3 no-print">
-                <!-- Botão Novo Registro (Esquerda) -->
                 <a href="nova_unidade.php" class="btn btn-success">Novo Registro</a>
-
-                <!-- Botão Imprimir (Direita) -->
                 <button class='btn btn-secondary' onclick="window.print()">
                     Imprimir
                 </button>
             </div>
-            <!-- FIM DO CONTÊINER DE ALINHAMENTO -->
-
             <table class="table table-hover table-striped">
                 <thead>
                     <tr>
-                        <!-- Colspan removido -->
                         <th>ID</th>
                         <th>Complemento (rua/bloco)</th>
                         <th>Número (Casa/Apto)</th>
-                        <!-- Coluna Ações: continua oculta na impressão -->
                         <th class="no-print">Ações</th>
                     </tr>
                 </thead>
@@ -66,7 +56,6 @@ try {
                                 <td><?= htmlspecialchars($d['id_unidade']) ?></td>
                                 <td><?= htmlspecialchars($d['complemento']) ?></td>
                                 <td><?= htmlspecialchars($d['numero']) ?></td>
-                                <!-- Adicionando no-print na coluna Ações -->
                                 <td class="d-flex gap-2 no-print">
                                     <a href="editar_unidade.php?id=<?= $d['id_unidade'] ?>" class="btn btn-sm btn-warning">Editar</a>
                                     <a href="apagar_unidade.php?id=<?= $d['id_unidade'] ?>" class="btn btn-sm btn-info">Apagar</a>

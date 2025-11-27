@@ -9,7 +9,6 @@
   <style>
     body {
       background-color: #f8f9fa;
-      /* Um cinza claro suave */
     }
   </style>
 </head>
@@ -24,7 +23,6 @@
     <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
       <div class="card-body">
         <?php
-        // Bloco PHP de lógica (Manter o seu código original aqui)
         if (isset($_GET['cadastro'])) {
           $cadastro = $_GET['cadastro'];
           if ($cadastro == 'true') {
@@ -68,7 +66,7 @@
         </form>
         <p class="mt-3 text-center">
           Ainda não tem uma conta?
-          <a href="cadastro.php">Cadastre-se aqui</a>
+          <a href="cadastro.php">Cadastre-se aqui!</a>
         </p>
       </div>
     </div>

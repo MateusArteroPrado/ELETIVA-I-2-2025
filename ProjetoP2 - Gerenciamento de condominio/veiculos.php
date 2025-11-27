@@ -43,18 +43,14 @@ try {
     <div class="card shadow-lg p-4" style="width: 100%; max-width: 90%;">
         <div class="card-body">
             <h2 class="card-title text-center mb-4">Veículos</h2>
-            
-            <!-- NOVO CONTÊINER DE ALINHAMENTO -->
+
             <div class="d-flex justify-content-between mb-3 no-print">
-                <!-- Botão Novo Registro (Esquerda) -->
                 <a href="novo_veiculo.php" class="btn btn-success">Novo Registro</a>
-                
-                <!-- Botão Imprimir (Direita) -->
+
                 <button class='btn btn-secondary' onclick="window.print()">
                     Imprimir
                 </button>
             </div>
-            <!-- FIM DO CONTÊINER DE ALINHAMENTO -->
 
             <table class="table table-hover table-striped">
                 <thead>
@@ -63,7 +59,6 @@ try {
                         <th>Modelo</th>
                         <th>Cor</th>
                         <th>Proprietário</th>
-                        <!-- Adicionando no-print na coluna Ações -->
                         <th class="no-print">Ações</th>
                     </tr>
                 </thead>
@@ -75,7 +70,6 @@ try {
                                 <td><?= htmlspecialchars($d['modelo']) ?></td>
                                 <td><?= htmlspecialchars($d['cor']) ?></td>
                                 <td><?= htmlspecialchars($d['nome_morador']) ?></td>
-                                <!-- Adicionando no-print na coluna Ações -->
                                 <td class="d-flex gap-2 no-print">
                                     <a href="editar_veiculo.php?placa=<?= $d['placa'] ?>" class="btn btn-sm btn-warning">Editar</a>
                                     <a href="apagar_veiculo.php?placa=<?= $d['placa'] ?>" class="btn btn-sm btn-info">Apagar</a>

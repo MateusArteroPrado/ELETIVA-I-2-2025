@@ -2,8 +2,6 @@
 require("cabecalho.php");
 require("conexao.php");
 
-// Lógica de Feedback (Mensagens de sucesso/erro)
-// Adicionando 'no-print' nas mensagens de feedback
 if (isset($_GET['cadastro'])) {
     $msg = $_GET['cadastro'] == 'true'
         ? "<div class='alert alert-success no-print'>CADASTRO REALIZADO</div>"
@@ -45,18 +43,13 @@ try {
     <div class="card shadow-lg p-4" style="width: 100%; max-width: 90%;">
         <div class="card-body">
             <h2 class="card-title text-center mb-4">Moradores</h2>
-
-            <!-- NOVO CONTÊINER DE ALINHAMENTO -->
             <div class="d-flex justify-content-between mb-3 no-print">
-                <!-- Botão Novo Registro (Esquerda) -->
                 <a href="novo_morador.php" class="btn btn-success">Novo Registro</a>
 
-                <!-- Botão Imprimir (Direita) -->
                 <button class='btn btn-secondary' onclick="window.print()">
                     Imprimir
                 </button>
             </div>
-            <!-- FIM DO CONTÊINER DE ALINHAMENTO -->
 
             <table class="table table-hover table-striped">
                 <thead>
@@ -64,7 +57,6 @@ try {
                         <th>ID</th>
                         <th>Nome</th>
                         <th>Unidade (Endereço)</th>
-                        <!-- Adicionando no-print na coluna Ações -->
                         <th class="no-print">Ações</th>
                     </tr>
                 </thead>
@@ -75,7 +67,6 @@ try {
                                 <td><?= htmlspecialchars($d['id_morador']) ?></td>
                                 <td><?= htmlspecialchars($d['nome']) ?></td>
                                 <td><?= htmlspecialchars($d['complemento'] . ' - ' . $d['numero']) ?></td>
-                                <!-- Adicionando no-print na coluna Ações -->
                                 <td class="d-flex gap-2 no-print">
                                     <a href="editar_morador.php?id=<?= $d['id_morador'] ?>" class="btn btn-sm btn-warning">Editar</a>
                                     <a href="apagar_morador.php?id=<?= $d['id_morador'] ?>" class="btn btn-sm btn-info">Apagar</a>

@@ -41,14 +41,10 @@ try {
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
 
-            <!-- CONTÊINER DE ALINHAMENTO PARA BOTÕES -->
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="mb-0">Mural de Ocorrências</h2>
-                <!-- Botões de Ação/Impressão -->
                 <div class="d-flex gap-2 no-print">
-                    <!-- Botão Novo Registro (Esquerda) -->
                     <a href="nova_ocorrencia.php" class="btn btn-success">Registrar Nova</a>
-                    <!-- Botão Imprimir (Direita) -->
                     <button class='btn btn-secondary' onclick="window.print()">
                         Imprimir
                     </button>
@@ -67,7 +63,6 @@ try {
                         <div class="card-body">
                             <p class="card-text"><?= nl2br(htmlspecialchars($d['descricao'])) ?></p>
                         </div>
-                        <!-- Aplicando no-print no rodapé do card -->
                         <div class="card-footer d-flex justify-content-between align-items-center no-print">
                             <small class="text-muted">Relator: <strong><?= htmlspecialchars($d['nome_morador']) ?></strong></small>
                             <div class="d-flex gap-2">

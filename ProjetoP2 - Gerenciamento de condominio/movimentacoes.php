@@ -2,7 +2,6 @@
 require("cabecalho.php");
 require("conexao.php");
 
-// Lógica de Feedback
 $feedback = '';
 if (isset($_GET['cadastro'])) {
     $feedback = $_GET['cadastro'] == 'true'
@@ -39,14 +38,11 @@ try {
     <div class="card shadow-lg p-4" style="width: 100%; max-width: 90%;">
         <div class="card-body">
 
-            <!-- CONTÊINER DE ALINHAMENTO PARA BOTÕES -->
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="card-title mb-0">Registro de Movimentações</h2>
                 <div class="d-flex gap-2 no-print">
-                    <!-- Botões de Ação (Entrada/Saída) -->
                     <a href="nova_movimentacao.php?tipo=Entrada" class="btn btn-success">➡️ Entrada</a>
                     <a href="nova_movimentacao.php?tipo=Saida" class="btn btn-danger">⬅️ Saída</a>
-                    <!-- Botão Imprimir -->
                     <button class='btn btn-secondary' onclick="window.print()">
                         Imprimir
                     </button>
