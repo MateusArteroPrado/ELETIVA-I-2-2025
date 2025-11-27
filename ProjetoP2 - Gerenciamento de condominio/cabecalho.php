@@ -22,6 +22,12 @@ $pagina_atual = basename($_SERVER['PHP_SELF']);
             /* Valor que compensa a altura da Navbar */
             padding-top: 70px;
         }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 
@@ -65,10 +71,6 @@ $pagina_atual = basename($_SERVER['PHP_SELF']);
                             Bem-vindo(a), <?= htmlspecialchars($nome_usuario) ?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="perfil.php">Meu Perfil</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
                             <li><a class="dropdown-item text-danger" href="sair.php">Sair</a></li>
                         </ul>
                     </li>

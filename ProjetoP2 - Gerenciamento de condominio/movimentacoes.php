@@ -6,17 +6,16 @@ require("conexao.php");
 $feedback = '';
 if (isset($_GET['cadastro'])) {
     $feedback = $_GET['cadastro'] == 'true'
-        ? "<div class='alert alert-success'>MOVIMENTAÇÃO REGISTRADA</div>"
-        : "<div class='alert alert-danger'>ERRO AO REGISTRAR</div>";
+        ? "<div class='alert alert-success no-print'>MOVIMENTAÇÃO REGISTRADA</div>"
+        : "<div class='alert alert-danger no-print'>ERRO AO REGISTRAR</div>";
 }
 if (isset($_GET['excluir'])) {
     $feedback = $_GET['excluir'] == 'true'
-        ? "<div class='alert alert-success'>REGISTRO EXCLUÍDO</div>"
-        : "<div class='alert alert-danger'>ERRO AO EXCLUIR</div>";
+        ? "<div class='alert alert-success no-print'>REGISTRO EXCLUÍDO</div>"
+        : "<div class='alert alert-danger no-print'>ERRO AO EXCLUIR</div>";
 }
 
 try {
-    // *** AJUSTE NA QUERY: Adicionado v.modelo ***
     $stmt = $pdo->prepare("SELECT 
                                 mov.id_movimentacao, 
                                 mov.tipo,
@@ -31,7 +30,7 @@ try {
     $stmt->execute();
     $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (\Exception $e) {
-    echo "<div class='alert alert-danger'>Erro: " . $e->getMessage() . "</div>";
+    echo "<div class='alert alert-danger no-print'>Erro: " . $e->getMessage() . "</div>";
     $dados = [];
 }
 ?>
@@ -40,11 +39,17 @@ try {
     <div class="card shadow-lg p-4" style="width: 100%; max-width: 90%;">
         <div class="card-body">
 
+            <!-- CONTÊINER DE ALINHAMENTO PARA BOTÕES -->
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="card-title mb-0">Registro de Movimentações</h2>
-                <div class="d-flex gap-2">
-                    <a href="nova_movimentacao.php?tipo=Entrada" class="btn btn-success">➡️ Registrar Entrada</a>
-                    <a href="nova_movimentacao.php?tipo=Saida" class="btn btn-danger">⬅️ Registrar Saída</a>
+                <div class="d-flex gap-2 no-print">
+                    <!-- Botões de Ação (Entrada/Saída) -->
+                    <a href="nova_movimentacao.php?tipo=Entrada" class="btn btn-success">➡️ Entrada</a>
+                    <a href="nova_movimentacao.php?tipo=Saida" class="btn btn-danger">⬅️ Saída</a>
+                    <!-- Botão Imprimir -->
+                    <button class='btn btn-secondary' onclick="window.print()">
+                        Imprimir
+                    </button>
                 </div>
             </div>
 
@@ -57,7 +62,7 @@ try {
                         <th>Data/Hora</th>
                         <th>Morador</th>
                         <th>Veículo (Placa - Marca/Modelo)</th>
-                        <th>Ações</th>
+                        <th class="no-print">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -82,7 +87,7 @@ try {
                                     <?php endif; ?>
                                 </td>
 
-                                <td>
+                                <td class="no-print">
                                     <a href="apagar_movimentacao.php?id=<?= $d['id_movimentacao'] ?>" class="btn btn-sm btn-info">Apagar</a>
                                 </td>
                             </tr>

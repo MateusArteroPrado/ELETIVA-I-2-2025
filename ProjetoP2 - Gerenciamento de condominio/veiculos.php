@@ -2,22 +2,23 @@
 require("cabecalho.php");
 require("conexao.php");
 
+// Adicionando 'no-print' nas mensagens de feedback
 if (isset($_GET['cadastro'])) {
     $msg = $_GET['cadastro'] == 'true'
-        ? "<div class='alert alert-success'>CADASTRO REALIZADO</div>"
-        : "<div class='alert alert-danger'>ERRO AO CADASTRAR</div>";
+        ? "<div class='alert alert-success no-print'>CADASTRO REALIZADO</div>"
+        : "<div class='alert alert-danger no-print'>ERRO AO CADASTRAR</div>";
     echo $msg;
 }
 if (isset($_GET['editar'])) {
     $msg = $_GET['editar'] == 'true'
-        ? "<div class='alert alert-success'>CADASTRO EDITADO</div>"
-        : "<div class='alert alert-danger'>ERRO AO EDITAR</div>";
+        ? "<div class='alert alert-success no-print'>CADASTRO EDITADO</div>"
+        : "<div class='alert alert-danger no-print'>ERRO AO EDITAR</div>";
     echo $msg;
 }
 if (isset($_GET['excluir'])) {
     $msg = $_GET['excluir'] == 'true'
-        ? "<div class='alert alert-success'>CADASTRO EXCLUÍDO</div>"
-        : "<div class='alert alert-danger'>ERRO AO EXCLUIR</div>";
+        ? "<div class='alert alert-success no-print'>CADASTRO EXCLUÍDO</div>"
+        : "<div class='alert alert-danger no-print'>ERRO AO EXCLUIR</div>";
     echo $msg;
 }
 
@@ -33,7 +34,7 @@ try {
     $stmt->execute();
     $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (\Exception $e) {
-    echo "<div class='alert alert-danger'>Erro: " . $e->getMessage() . "</div>";
+    echo "<div class='alert alert-danger no-print'>Erro: " . $e->getMessage() . "</div>";
     $dados = [];
 }
 ?>
@@ -42,7 +43,18 @@ try {
     <div class="card shadow-lg p-4" style="width: 100%; max-width: 90%;">
         <div class="card-body">
             <h2 class="card-title text-center mb-4">Veículos</h2>
-            <a href="novo_veiculo.php" class="btn btn-success mb-3">Novo Registro</a>
+            
+            <!-- NOVO CONTÊINER DE ALINHAMENTO -->
+            <div class="d-flex justify-content-between mb-3 no-print">
+                <!-- Botão Novo Registro (Esquerda) -->
+                <a href="novo_veiculo.php" class="btn btn-success">Novo Registro</a>
+                
+                <!-- Botão Imprimir (Direita) -->
+                <button class='btn btn-secondary' onclick="window.print()">
+                    Imprimir
+                </button>
+            </div>
+            <!-- FIM DO CONTÊINER DE ALINHAMENTO -->
 
             <table class="table table-hover table-striped">
                 <thead>
@@ -51,7 +63,8 @@ try {
                         <th>Modelo</th>
                         <th>Cor</th>
                         <th>Proprietário</th>
-                        <th>Ações</th>
+                        <!-- Adicionando no-print na coluna Ações -->
+                        <th class="no-print">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,7 +75,8 @@ try {
                                 <td><?= htmlspecialchars($d['modelo']) ?></td>
                                 <td><?= htmlspecialchars($d['cor']) ?></td>
                                 <td><?= htmlspecialchars($d['nome_morador']) ?></td>
-                                <td class="d-flex gap-2">
+                                <!-- Adicionando no-print na coluna Ações -->
+                                <td class="d-flex gap-2 no-print">
                                     <a href="editar_veiculo.php?placa=<?= $d['placa'] ?>" class="btn btn-sm btn-warning">Editar</a>
                                     <a href="apagar_veiculo.php?placa=<?= $d['placa'] ?>" class="btn btn-sm btn-info">Apagar</a>
                                 </td>

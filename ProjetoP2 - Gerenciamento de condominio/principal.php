@@ -15,45 +15,45 @@ try {
 
 
 <div class="container mt-4">
-    <h1>Métricas Gerais do Condomínio</h1>
-    <p class="lead">Visão geral e estatísticas dos cadastros e atividades.</p>
+    <h1 class="text-center">Métricas Gerais do Condomínio</h1>
+    <p class="lead text-center">Visão geral dos cadastros e atividades.</p>
     <div class="row">
 
         <div class="col-md-3 mb-4">
             <div class="card text-white bg-primary shadow">
                 <div class="card-body">
-                    <h5 class="card-title">Unidades Cadastradas</h5>
-                    <p class="card-text fs-2"><?= $total_unidades ?></p>
+                    <h5 class="card-title text-center">Unidades Cadastradas</h5>
+                    <p class="card-text fs-2 text-center"><?= $total_unidades ?></p>
                     <a href="unidades.php" class="text-white small">Ver detalhes</a>
                 </div>
             </div>
         </div>
 
         <div class="col-md-3 mb-4">
-            <div class="card text-white bg-info shadow">
+            <div class="card text-white bg-success shadow">
                 <div class="card-body">
-                    <h5 class="card-title">Moradores Ativos</h5>
-                    <p class="card-text fs-2"><?= $total_moradores ?></p>
+                    <h5 class="card-title text-center">Moradores Ativos</h5>
+                    <p class="card-text fs-2 text-center"><?= $total_moradores ?></p>
                     <a href="moradores.php" class="text-white small">Ver detalhes</a>
                 </div>
             </div>
         </div>
 
         <div class="col-md-3 mb-4">
-            <div class="card text-white bg-warning shadow">
+            <div class="card text-white bg-primary  shadow">
                 <div class="card-body">
-                    <h5 class="card-title">Veículos Registrados</h5>
-                    <p class="card-text fs-2"><?= $total_veiculos ?></p>
+                    <h5 class="card-title text-center">Veículos Registrados</h5>
+                    <p class="card-text fs-2 text-center"><?= $total_veiculos ?></p>
                     <a href="veiculos.php" class="text-white small">Ver detalhes</a>
                 </div>
             </div>
         </div>
 
         <div class="col-md-3 mb-4">
-            <div class="card text-white bg-danger shadow">
+            <div class="card text-white bg-success shadow">
                 <div class="card-body">
-                    <h5 class="card-title">Total de Ocorrências</h5>
-                    <p class="card-text fs-2"><?= $total_ocorrencias ?></p>
+                    <h5 class="card-title text-center">Total de Ocorrências</h5>
+                    <p class="card-text fs-2 text-center"><?= $total_ocorrencias ?></p>
                     <a href="ocorrencias.php" class="text-white small">Ver mural</a>
                 </div>
             </div>

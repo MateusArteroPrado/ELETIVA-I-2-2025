@@ -5,18 +5,18 @@ require("conexao.php");
 $feedback = '';
 if (isset($_GET['cadastro'])) {
     $feedback = $_GET['cadastro'] == 'true'
-        ? "<div class='alert alert-success'>OCORRÊNCIA REGISTRADA</div>"
-        : "<div class='alert alert-danger'>ERRO AO REGISTRAR</div>";
+        ? "<div class='alert alert-success no-print'>OCORRÊNCIA REGISTRADA</div>"
+        : "<div class='alert alert-danger no-print'>ERRO AO REGISTRAR</div>";
 }
 if (isset($_GET['editar'])) {
     $feedback = $_GET['editar'] == 'true'
-        ? "<div class='alert alert-success'>OCORRÊNCIA EDITADA</div>"
-        : "<div class='alert alert-danger'>ERRO AO EDITAR</div>";
+        ? "<div class='alert alert-success no-print'>OCORRÊNCIA EDITADA</div>"
+        : "<div class='alert alert-danger no-print'>ERRO AO EDITAR</div>";
 }
 if (isset($_GET['excluir'])) {
     $feedback = $_GET['excluir'] == 'true'
-        ? "<div class='alert alert-success'>OCORRÊNCIA EXCLUÍDA</div>"
-        : "<div class='alert alert-danger'>ERRO AO EXCLUIR</div>";
+        ? "<div class='alert alert-success no-print'>OCORRÊNCIA EXCLUÍDA</div>"
+        : "<div class='alert alert-danger no-print'>ERRO AO EXCLUIR</div>";
 }
 
 try {
@@ -32,7 +32,7 @@ try {
     $stmt->execute();
     $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (\Exception $e) {
-    echo "<div class='alert alert-danger'>Erro: " . $e->getMessage() . "</div>";
+    echo "<div class='alert alert-danger no-print'>Erro: " . $e->getMessage() . "</div>";
     $dados = [];
 }
 ?>
@@ -41,9 +41,18 @@ try {
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
 
+            <!-- CONTÊINER DE ALINHAMENTO PARA BOTÕES -->
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="mb-0">Mural de Ocorrências</h2>
-                <a href="nova_ocorrencia.php" class="btn btn-success">Registrar Nova</a>
+                <!-- Botões de Ação/Impressão -->
+                <div class="d-flex gap-2 no-print">
+                    <!-- Botão Novo Registro (Esquerda) -->
+                    <a href="nova_ocorrencia.php" class="btn btn-success">Registrar Nova</a>
+                    <!-- Botão Imprimir (Direita) -->
+                    <button class='btn btn-secondary' onclick="window.print()">
+                        Imprimir
+                    </button>
+                </div>
             </div>
 
             <?= $feedback ?>
@@ -58,7 +67,8 @@ try {
                         <div class="card-body">
                             <p class="card-text"><?= nl2br(htmlspecialchars($d['descricao'])) ?></p>
                         </div>
-                        <div class="card-footer d-flex justify-content-between align-items-center">
+                        <!-- Aplicando no-print no rodapé do card -->
+                        <div class="card-footer d-flex justify-content-between align-items-center no-print">
                             <small class="text-muted">Relator: <strong><?= htmlspecialchars($d['nome_morador']) ?></strong></small>
                             <div class="d-flex gap-2">
                                 <a href="editar_ocorrencia.php?id=<?= $d['id_ocorrencia'] ?>" class="btn btn-sm btn-warning">Editar</a>

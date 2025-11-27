@@ -3,27 +3,28 @@ require("cabecalho.php");
 require("conexao.php");
 
 $feedback = '';
+// Adicionando 'no-print' nas mensagens de feedback
 if (isset($_GET['cadastro'])) {
     $feedback = $_GET['cadastro'] == 'true'
-        ? "<div class='alert alert-success'>CADASTRO REALIZADO</div>"
-        : "<div class='alert alert-danger'>ERRO AO CADASTRAR</div>";
+        ? "<div class='alert alert-success no-print'>CADASTRO REALIZADO</div>"
+        : "<div class='alert alert-danger no-print'>ERRO AO CADASTRAR</div>";
 }
 if (isset($_GET['editar'])) {
     $feedback = $_GET['editar'] == 'true'
-        ? "<div class='alert alert-success'>CADASTRO EDITADO</div>"
-        : "<div class='alert alert-danger'>ERRO AO EDITAR</div>";
+        ? "<div class='alert alert-success no-print'>CADASTRO EDITADO</div>"
+        : "<div class='alert alert-danger no-print'>ERRO AO EDITAR</div>";
 }
 if (isset($_GET['excluir'])) {
     $feedback = $_GET['excluir'] == 'true'
-        ? "<div class='alert alert-success'>CADASTRO EXCLUÍDO</div>"
-        : "<div class='alert alert-danger'>ERRO AO EXCLUIR</div>";
+        ? "<div class='alert alert-success no-print'>CADASTRO EXCLUÍDO</div>"
+        : "<div class='alert alert-danger no-print'>ERRO AO EXCLUIR</div>";
 }
 
 try {
     $stmt = $pdo->query("SELECT * FROM unidade ORDER BY complemento, numero");
     $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (\Exception $e) {
-    echo "<div class='alert alert-danger'>Erro: " . $e->getMessage() . "</div>";
+    echo "<div class='alert alert-danger no-print'>Erro: " . $e->getMessage() . "</div>";
     $dados = [];
 }
 ?>
@@ -35,15 +36,27 @@ try {
 
             <?= $feedback ?>
 
-            <a href="nova_unidade.php" class="btn btn-success mb-3">Novo Registro</a>
+            <!-- NOVO CONTÊINER DE ALINHAMENTO -->
+            <div class="d-flex justify-content-between mb-3 no-print">
+                <!-- Botão Novo Registro (Esquerda) -->
+                <a href="nova_unidade.php" class="btn btn-success">Novo Registro</a>
+
+                <!-- Botão Imprimir (Direita) -->
+                <button class='btn btn-secondary' onclick="window.print()">
+                    Imprimir
+                </button>
+            </div>
+            <!-- FIM DO CONTÊINER DE ALINHAMENTO -->
 
             <table class="table table-hover table-striped">
                 <thead>
                     <tr>
+                        <!-- Colspan removido -->
                         <th>ID</th>
                         <th>Complemento (rua/bloco)</th>
                         <th>Número (Casa/Apto)</th>
-                        <th>Ações</th>
+                        <!-- Coluna Ações: continua oculta na impressão -->
+                        <th class="no-print">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,7 +66,8 @@ try {
                                 <td><?= htmlspecialchars($d['id_unidade']) ?></td>
                                 <td><?= htmlspecialchars($d['complemento']) ?></td>
                                 <td><?= htmlspecialchars($d['numero']) ?></td>
-                                <td class="d-flex gap-2">
+                                <!-- Adicionando no-print na coluna Ações -->
+                                <td class="d-flex gap-2 no-print">
                                     <a href="editar_unidade.php?id=<?= $d['id_unidade'] ?>" class="btn btn-sm btn-warning">Editar</a>
                                     <a href="apagar_unidade.php?id=<?= $d['id_unidade'] ?>" class="btn btn-sm btn-info">Apagar</a>
                                 </td>
